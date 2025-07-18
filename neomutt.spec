@@ -112,8 +112,6 @@ sed -i "s|L/usr/lib|L/usr/%{_lib}|g" Makefile
 
 %find_lang %{name}
 
-rm -f
-
 %files -f %{name}.lang
 %config(noreplace) %{_sysconfdir}/%{name}rc
 %{_bindir}/%{name}
