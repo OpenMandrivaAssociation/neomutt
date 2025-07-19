@@ -9,7 +9,7 @@
 
 Name:           neomutt
 Version:        20250510
-Release:        1
+Release:        2
 Summary:        A command line mail reader based on Mutt
 Group:          Networking/Mail
 License:        GPLv2
