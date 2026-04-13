@@ -8,8 +8,8 @@
 %define enable_sasl2	1
 
 Name:           neomutt
-Version:        20250510
-Release:        2
+Version:        20260406
+Release:        1
 Summary:        A command line mail reader based on Mutt
 Group:          Networking/Mail
 License:        GPLv2
@@ -40,21 +40,15 @@ BuildRequires:  docbook-utils
 BuildRequires:  linuxdoc-tools
 BuildRequires:  db-devel >= 5.3
 BuildRequires:  gettext
+
 Requires:       urlscan
 Requires:       sasl-plug-login
 Requires:	    sasl-plug-gssapi
+Requires:		mailcap
+Requires:		neomutt-doc
 
 %description
-What is NeoMutt?
-
-    NeoMutt is a project of projects.
-    A place to gather all the patches against Mutt.
-    A place for all the developers to gather.
-
-Hopefully this will build the community and reduce duplicated effort.
-
-NeoMutt was created when Richard Russon (FlatCap) took all the old Mutt
-patches, sorted through them, fixed them up and documented them.
+%{summary}.
 
 %package doc
 Summary:        Documentation and examples for NeoMutt
@@ -70,11 +64,12 @@ This package contains the documentation and examples for NeoMutt.
 %build
 export CC=cc
 ./configure \
+    SENDMAIL=%{_sbindir}/sendmail \
+    ISPELL=%{_bindir}/hunspell \
     --lua \
     --gpgme \
     --full-doc \
     --gnutls \
-    --ssl \
     --docdir=%{_docdir}/%{name}-doc \
     --bdb \
     --pgp \
