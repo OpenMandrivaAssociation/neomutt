@@ -8,11 +8,11 @@
 %define enable_sasl2	1
 
 Name:           neomutt
-Version:        20260406
+Version:        20260504
 Release:        1
 Summary:        A command line mail reader based on Mutt
 Group:          Networking/Mail
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://www.neomutt.org/
 Source0:        https://github.com/neomutt/neomutt/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -42,13 +42,13 @@ BuildRequires:  db-devel >= 5.3
 BuildRequires:  gettext
 
 Requires:       urlscan
+Requires:	mailcap
 Requires:       sasl-plug-login
-Requires:	    sasl-plug-gssapi
-Requires:		mailcap
-Requires:		neomutt-doc
+Requires:	sasl-plug-gssapi
+Requires:	neomutt-doc
 
 %description
-%{summary}.
+A command line mail reader based on Mutt.
 
 %package doc
 Summary:        Documentation and examples for NeoMutt
@@ -62,7 +62,7 @@ This package contains the documentation and examples for NeoMutt.
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-export CC=cc
+#export CC=cc
 ./configure \
     SENDMAIL=%{_sbindir}/sendmail \
     ISPELL=%{_bindir}/hunspell \
@@ -103,17 +103,19 @@ sed -i "s|L/usr/lib|L/usr/%{_lib}|g" Makefile
 %make_build
 
 %install
+# remove MacOS stuff
+rm -r data/account-command/macos-keychain
 %make_install
-
 %find_lang %{name}
 
 %files -f %{name}.lang
+%license LICENSE.md AUTHORS.md
 %config(noreplace) %{_sysconfdir}/%{name}rc
 %{_bindir}/%{name}
-%{_datadir}/%{name}/
-%{_libexecdir}/%{name}/
+%{_datadir}/%{name}
+%{_libexecdir}/%{name}
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*
 
 %files doc
-%{_docdir}/%{name}-doc/
+%{_docdir}/%{name}-doc
