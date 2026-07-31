@@ -8,8 +8,8 @@
 %define enable_sasl2	1
 
 Name:           neomutt
-Version:        20250510
-Release:        2
+Version:        20260616
+Release:        1
 Summary:        A command line mail reader based on Mutt
 Group:          Networking/Mail
 License:        GPLv2
